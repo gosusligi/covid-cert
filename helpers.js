@@ -47,6 +47,7 @@
       const passport = params.get('ps').split('_');
       const birthDate = params.get('bd').split('_');
       const lastNumbers = params.get('lc');
+      const expiredAt = params.get('ed');
       const fullName = `${sName[0]}${'*'.repeat(Number(sName[1]))} ${fName[0]}${'*'.repeat(Number(fName[1]))} ${lName[0]}${'*'.repeat(Number(lName[1]))}`;
       const enFullName = `${sName[2]}${'*'.repeat(Number(sName[1]))} ${fName[2]}${'*'.repeat(Number(fName[1]))} ${lName[2]}${'*'.repeat(Number(lName[1]))}`;
       certInit.items[0].attrs[0].value = fullName;
@@ -57,6 +58,10 @@
       certInit.items[0].attrs[2].envalue = `${passport[0]}** ***${passport[1]}`;
       certInit.items[0].unrzFull = `91600000408146${lastNumbers}`;
       certInit.items[0].unrz = `1600000408146${lastNumbers}`;
+      if(expiredAt) {
+        const expDateParsed = expiredAt.split('_');
+        certInit.items[0].expiredAt = `${expDateParsed[0]}.${expDateParsed[1]}.2022`;
+      }
       return Promise.resolve(certInit);
     },
   }
